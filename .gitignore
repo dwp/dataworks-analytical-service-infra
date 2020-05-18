@@ -1,0 +1,35 @@
+HELP.md
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDEA
+.idea/*
+*.iml
+
+# Terraform
+ci/terraform.tf
+*.tfvars
+rad/
+out/
+**/.terraform/
+**/*.tfvars
+**/*.tfstate
+**/*.tfstate*
+**/terraform.tf
+
+#Logs
+dks.log.directory_IS_UNDEFINED
+dks.log.*
+logs/
+*.log
+*.jks
+*.pem
+*.crt
+*.p12
+
+# Testing
+.kotlintest
+
+# CI
+aviator_pipeline.yml
