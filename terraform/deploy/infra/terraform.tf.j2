@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     bucket         = "{{state_file_bucket}}"
-    key            = "terraform/dataworks/emr-cluster-broker-infra.tfstate"
+    key            = "terraform/dataworks/analytical-service-infra.tfstate"
     region         = "{{state_file_region}}"
     encrypt        = true
     kms_key_id     = "arn:aws:kms:{{state_file_region}}:{{state_file_account}}:key/{{state_file_kms_key}}"
@@ -49,7 +49,7 @@ provider "aws" {
 }
 
 locals {
-  name = "emr-cluster-broker"
+  name = "analytical-service-infra"
 
   environment = terraform.workspace == "default" ? "development" : terraform.workspace
 
