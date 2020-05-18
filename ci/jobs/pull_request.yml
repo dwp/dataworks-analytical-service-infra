@@ -8,8 +8,6 @@ jobs:
         params:
           path: dataworks-analytical-service-infra-pr
           status: pending
-      - get: dataworks-analytical-service-infra-client-release
-        version: { tag: '0.0.1' }
       - .: (( inject meta.plan.terraform-bootstrap ))
         params:
           DEPLOY_PATH: infra
@@ -43,7 +41,18 @@ jobs:
                 terraform plan -var assume_role=ci
           inputs:
             - name: dataworks-analytical-service-infra
-            - name: dataworks-analytical-service-infra-client-release
             - name: terraform-config
         input_mapping:
           dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
+    on_failure:
+      put: dataworks-analytical-service-infra-pr
+      params:
+        context: $BUILD_JOB_NAME
+        path: dataworks-analytical-service-infra-pr
+        status: failure
+    on_success:
+      put: dataworks-analytical-service-infra-pr
+      params:
+        context: $BUILD_JOB_NAME
+        path: dataworks-analytical-service-infra-pr
+        status: success
