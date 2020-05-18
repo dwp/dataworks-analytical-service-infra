@@ -47,10 +47,12 @@ jobs:
     on_failure:
       put: dataworks-analytical-service-infra-pr
       params:
+        context: dataworks-analytical-service-infra-pr
         path: dataworks-analytical-service-infra-pr
         status: failure
     on_success:
       put: dataworks-analytical-service-infra-pr
       params:
+        context: dataworks-analytical-service-infra-pr
         path: dataworks-analytical-service-infra-pr
         status: success
