@@ -49,7 +49,11 @@ provider "aws" {
 }
 
 locals {
+<<<<<<< HEAD
   name = "analytical-service-infra"
+=======
+  name = "emr-cluster-broker"
+>>>>>>> DW-4056 - Adding infra code from emr-cluster-broker repo
 
   environment = terraform.workspace == "default" ? "development" : terraform.workspace
 
