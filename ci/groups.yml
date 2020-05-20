@@ -1,0 +1,4 @@
+groups:
+  - name: pull-request
+    jobs:
+      - dataworks-analytical-service-infra-pr
