@@ -36,3 +36,7 @@ variable "analytical-env-vpc" {
   description = "(Optional) The Frontend VPC Used for Peering"
   type        = string
 }
+
+variable "analytical-env-vpc-subnets" {
+  description = "(Optional) The Analytical Env Subnets"
+}
