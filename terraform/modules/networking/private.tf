@@ -21,15 +21,15 @@ resource "aws_route_table_association" "private" {
 resource aws_route to_frontend {
   count                     = length(regexall("^vpc-", var.analytical-env-vpc)) > 0 ? local.zone_count : 0
   route_table_id            = aws_route_table.private[count.index].id
-  destination_cidr_block    = data.aws_vpc_peering_connection.frontend[0].cidr_block
-  vpc_peering_connection_id = data.aws_vpc_peering_connection.frontend[0].id
+  destination_cidr_block    = data.aws_vpc.frontend.cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.analytical-vpc[0].id
 }
 
 resource aws_route from_frontend {
   count                     = length(regexall("^vpc-", var.analytical-env-vpc)) > 0 ? local.zone_count : 0
   route_table_id            = var.analytical-env-route-tables[count.index]
   destination_cidr_block    = var.vpc.cidr_block
-  vpc_peering_connection_id = data.aws_vpc_peering_connection.frontend[0].id
+  vpc_peering_connection_id = aws_vpc_peering_connection.analytical-vpc[0].id
 }
 
 
