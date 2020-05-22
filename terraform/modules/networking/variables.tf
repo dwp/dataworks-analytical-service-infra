@@ -40,3 +40,7 @@ variable "analytical-env-vpc" {
 variable "analytical-env-vpc-subnets" {
   description = "(Optional) The Analytical Env Subnets"
 }
+
+variable analytical-env-route-tables {
+
+}

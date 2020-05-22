@@ -18,16 +18,16 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private[count.index].id
 }
 
-resource aws_route frontend_private {
+resource aws_route to_frontend {
   count                     = length(regexall("^vpc-", var.analytical-env-vpc)) > 0 ? local.zone_count : 0
   route_table_id            = aws_route_table.private[count.index].id
   destination_cidr_block    = data.aws_vpc_peering_connection.frontend[0].cidr_block
   vpc_peering_connection_id = data.aws_vpc_peering_connection.frontend[0].id
 }
 
-resource aws_route frontend {
+resource aws_route from_frontend {
   count                     = length(regexall("^vpc-", var.analytical-env-vpc)) > 0 ? local.zone_count : 0
-  route_table_id            = var.analytical-env-vpc-subnets[count.index].id
+  route_table_id            = var.analytical-env-route-tables[count.index]
   destination_cidr_block    = var.vpc.cidr_block
   vpc_peering_connection_id = data.aws_vpc_peering_connection.frontend[0].id
 }
