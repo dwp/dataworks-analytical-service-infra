@@ -50,7 +50,6 @@ provider "aws" {
 
 locals {
   name = "analytical-service-infra"
-
   environment = terraform.workspace == "default" ? "development" : terraform.workspace
 
   root_dns_name = {

@@ -12,7 +12,6 @@ module analytical_service_infra_vpc {
   vpc_name                                   = local.name
 
   dynamodb_endpoint             = true
-  ecrapi_endpoint               = false
   ecrdkr_endpoint               = true
   ec2_endpoint                  = true
   ec2messages_endpoint          = true
@@ -22,8 +21,6 @@ module analytical_service_infra_vpc {
   monitoring_endpoint           = true
   s3_endpoint                   = true
   emr_endpoint                  = true
-  ssm_endpoint                  = false
-  ssmmessages_endpoint          = false
   ecs_endpoint                  = true
   elasticloadbalancing_endpoint = true
 }
@@ -47,5 +44,6 @@ module networking {
   }
 
   internet_proxy_service_name = data.terraform_remote_state.internet_egress.outputs.internet_proxy_service.service_name
-  frontend_vpc                = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_vpc
+  analytical-env-vpc          = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_vpc
+  analytical-env-vpc-subnets  = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_subnets_private
 }
