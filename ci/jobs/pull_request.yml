@@ -13,46 +13,15 @@ jobs:
           DEPLOY_PATH: infra
         input_mapping:
           dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
-      - task: terraform-plan-infra
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: ((dataworks.terraform_repository))
-              version: ((dataworks.terraform_version))
-              tag: ((dataworks.terraform_version))
+        on_failure:
+          put: dataworks-analytical-service-infra-pr
           params:
-            AWS_ACCESS_KEY_ID: ((dataworks-secrets.ci_aws_access_key_id))
-            AWS_SECRET_ACCESS_KEY: ((dataworks-secrets.ci_aws_secret_access_key))
-            TF_INPUT: false
-            TF_WORKSPACE: qa
-            TF_CLI_ARGS_apply: -lock-timeout=300s
-            TF_CLI_ARGS_plan:  -lock-timeout=300s
-          run:
-            path: sh
-            dir: dataworks-analytical-service-infra/terraform/deploy/infra
-            args:
-              - -exc
-              - |
-                cp ../../../../terraform-config/terraform.tf .
-                cp ../../../../terraform-config/terraform.tfvars .
-                terraform init
-                terraform plan -var assume_role=ci
-          inputs:
-            - name: dataworks-analytical-service-infra
-            - name: terraform-config
-        input_mapping:
-          dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
-    on_failure:
-      put: dataworks-analytical-service-infra-pr
-      params:
-        context: dataworks-analytical-service-infra-pr
-        path: dataworks-analytical-service-infra-pr
-        status: failure
-    on_success:
-      put: dataworks-analytical-service-infra-pr
-      params:
-        context: dataworks-analytical-service-infra-pr
-        path: dataworks-analytical-service-infra-pr
-        status: success
+            context: dataworks-analytical-service-infra-pr
+            path: dataworks-analytical-service-infra-pr
+            status: failure
+        on_success:
+          put: dataworks-analytical-service-infra-pr
+          params:
+            context: dataworks-analytical-service-infra-pr
+            path: dataworks-analytical-service-infra-pr
+            status: success
