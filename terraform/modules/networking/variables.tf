@@ -42,5 +42,4 @@ variable "analytical-env-vpc-subnets" {
 }
 
 variable analytical-env-route-tables {
-
 }

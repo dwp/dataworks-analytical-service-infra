@@ -12,6 +12,7 @@ resource aws_vpc_peering_connection analytical-vpc {
   }
 }
 
+
 data aws_vpc frontend {
   id = var.analytical-env-vpc
 }
