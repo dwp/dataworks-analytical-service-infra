@@ -7,7 +7,7 @@ jobs:
       - qa
   - .: (( inject meta.plan.terraform-bootstrap ))
     params:
-      DEPLOY_PATH: app
+      DEPLOY_PATH: infra
   - .: (( inject meta.plan.terraform-apply ))
     config:
       run:

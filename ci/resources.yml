@@ -2,7 +2,7 @@ resources:
   - name: dataworks-analytical-service-infra-pr
     type: pull-request
     source:
-      access_token: ((dataworks-secrets.concourse_github_pat))
+      access_token: ((github_com.token))
       repo: dwp/dataworks-analytical-service-infra
       uri: https://github.com/dwp/dataworks-analytical-service-infra.git
     check_every: 15m
@@ -10,7 +10,8 @@ resources:
     type: git
     source:
       branch: master
-      access_token: ((dataworks-secrets.concourse_github_pat))
+      username: ((github_com.username))
+      password: ((github_com.token))
       uri: https://github.com/dwp/dataworks-analytical-service-infra.git
     check_every: 15m
 

@@ -102,7 +102,7 @@ meta:
           AWS_SECRET_ACCESS_KEY: ((ci.aws_secret_access_key))
         run:
           path: sh
-          dir: analytical-frontend-service/terraform/deploy
+          dir: dataworks-analytical-service-infra/terraform/deploy
           args:
             - -exc
             - |
