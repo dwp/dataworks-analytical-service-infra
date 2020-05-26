@@ -8,3 +8,8 @@ spruce:
   - with_in: ci/jobs/
   to: aviator_pipeline.yml
 
+fly:
+  name: dataworks-analytical-service-infra
+  target: concourse
+  expose: false
+  config: aviator_pipeline.yml
