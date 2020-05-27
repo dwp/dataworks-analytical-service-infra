@@ -4,8 +4,6 @@ jobs:
   - get: dataworks-analytical-service-infra
     trigger: true
   - .: (( inject meta.plan.terraform-bootstrap ))
-    params:
-      DEPLOY_PATH: infra
   - .: (( inject meta.plan.terraform-apply ))
     params:
       TF_WORKSPACE: qa
