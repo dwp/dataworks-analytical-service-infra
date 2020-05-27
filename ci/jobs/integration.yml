@@ -9,15 +9,9 @@ jobs:
     params:
       DEPLOY_PATH: infra
   - .: (( inject meta.plan.terraform-apply ))
-    config:
-      run:
-        dir: 'dataworks-analytical-service-infra/terraform/deploy/infra'
     params:
       TF_WORKSPACE: integration
   - .: (( inject meta.plan.terraform-plan ))
-    config:
-      run:
-        dir: 'dataworks-analytical-service-infra/terraform/deploy/infra'
     params:
       TF_WORKSPACE: integration
 
