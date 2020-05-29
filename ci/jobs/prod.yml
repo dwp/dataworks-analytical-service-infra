@@ -1,0 +1,14 @@
+jobs:
+- name: production
+  plan:
+  - get: dataworks-analytical-service-infra
+    trigger: true
+    passed:
+      - preprod
+  - .: (( inject meta.plan.terraform-bootstrap ))
+  - .: (( inject meta.plan.terraform-apply ))
+    params:
+      TF_WORKSPACE: production
+  - .: (( inject meta.plan.terraform-plan ))
+    params:
+      TF_WORKSPACE: production
