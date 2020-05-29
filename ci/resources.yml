@@ -3,7 +3,7 @@ resources:
     type: pull-request
     source:
       access_token: ((github_com.token))
-      repository: dwp/dataworks-analytical-service-infra
+      repo: dwp/dataworks-analytical-service-infra
       uri: https://github.com/dwp/dataworks-analytical-service-infra.git
     check_every: 15m
   - name: dataworks-analytical-service-infra
