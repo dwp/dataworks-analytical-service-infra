@@ -9,8 +9,6 @@ jobs:
           path: dataworks-analytical-service-infra-pr
           status: pending
       - .: (( inject meta.plan.terraform-bootstrap ))
-        params:
-          DEPLOY_PATH: infra
         input_mapping:
           dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
         on_failure:

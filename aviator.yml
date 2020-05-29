@@ -7,8 +7,9 @@ spruce:
     regexp: ".*yml"
   - with_in: ci/jobs/
   to: aviator_pipeline.yml
+
 fly:
   name: dataworks-analytical-service-infra
-  target: aws-concourse
+  target: concourse
   expose: false
   config: aviator_pipeline.yml
