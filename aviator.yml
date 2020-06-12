@@ -12,4 +12,5 @@ fly:
   name: dataworks-analytical-service-infra
   target: aws-concourse
   expose: false
+  check_creds: true
   config: aviator_pipeline.yml
