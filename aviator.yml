@@ -10,6 +10,7 @@ spruce:
 
 fly:
   name: dataworks-analytical-service-infra
-  target: concourse
-  expose: false
+  target: aws-concourse
+  expose: true
+  check_creds: true
   config: aviator_pipeline.yml
