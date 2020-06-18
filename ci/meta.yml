@@ -1,5 +1,21 @@
 meta:
   plan:
+    terraform-common-config:
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ((dataworks.terraform_repository))
+            version: ((dataworks.terraform_version))
+            tag: ((dataworks.terraform_version))
+        params:
+          TF_INPUT: false
+          TF_CLI_ARGS_apply: -lock-timeout=300s
+          TF_CLI_ARGS_plan: -lock-timeout=300s
+          TF_VAR_slack_webhook_url: ((dataworks.slack_webhook_url))
+          TF_VAR_costcode: ((dataworks.costcode))
+
     terraform-bootstrap:
       task: terraform-bootstrap
       config:
@@ -26,20 +42,7 @@ meta:
       params:
         AWS_REGION: eu-west-2
         DEPLOY_PATH: infra
-    terraform-common-config:
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: ((dataworks.terraform_repository))
-            version: ((dataworks.terraform_version))
-            tag: ((dataworks.terraform_version))
-        params:
-          TF_INPUT: false
-          TF_CLI_ARGS_apply: -lock-timeout=300s
-          TF_CLI_ARGS_plan: -lock-timeout=300s
-          TF_VAR_slack_webhook_url: ((dataworks.slack_webhook_url))
+
     terraform-apply:
       task: terraform-apply
       .: (( inject meta.plan.terraform-common-config ))
@@ -59,6 +62,7 @@ meta:
         inputs:
           - name: dataworks-analytical-service-infra
           - name: terraform-config
+
     terraform-plan:
       task: terraform-plan
       .: (( inject meta.plan.terraform-common-config ))
@@ -77,6 +81,7 @@ meta:
         inputs:
           - name: dataworks-analytical-service-infra
           - name: terraform-config
+
     terraform-output:
       task: terraform-output
       .: (( inject meta.plan.terraform-common-config ))
@@ -97,6 +102,7 @@ meta:
           - name: terraform-config
         outputs:
           - name: terraform-output
+            
     create-aws-profiles:
       task: create-aws-profiles
       config:
