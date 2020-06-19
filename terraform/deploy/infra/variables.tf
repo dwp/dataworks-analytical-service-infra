@@ -12,3 +12,8 @@ variable "vpc_region" {
   type        = string
   description = "(Required) The region the VPC we are deploying into is in, defaults to eu-west-2 (London)"
 }
+
+variable "costcode" {
+  type    = string
+  default = ""
+}
