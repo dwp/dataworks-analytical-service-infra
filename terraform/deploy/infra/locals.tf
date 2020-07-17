@@ -6,7 +6,7 @@ data "aws_secretsmanager_secret_version" "internet_ingress" {
 locals {
 
   deploy_ithc_infra = {
-    development = true
+    development = false
     qa          = false
     integration = false
     preprod     = true
