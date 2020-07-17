@@ -137,6 +137,7 @@ resource "aws_route" "asi_to_ssh_bastion" {
 }
 
 resource "aws_route" "ssh_bastion_to_asi" {
+  count                     = local.deploy_ithc_infra[local.environment] ? 1 : 0
   provider                  = aws.ssh_bastion
   destination_cidr_block    = module.networking.outputs.aws_vpc.cidr_block
   route_table_id            = data.terraform_remote_state.internet_ingress.outputs.ssh_bastion.route_table.0.id
