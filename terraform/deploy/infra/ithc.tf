@@ -58,7 +58,7 @@ resource "aws_security_group_rule" "egress_internet_proxy" {
   from_port                = 3128
   to_port                  = 3128
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.internet_proxy_endpoint.id
+  source_security_group_id = module.networking.outputs.internet_proxy_vpce.sg_id
   security_group_id        = aws_security_group.kali.0.id
 }
 
@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "ingress_internet_proxy" {
   to_port                  = 3128
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.kali.0.id
-  security_group_id        = aws_security_group.internet_proxy_endpoint.id
+  security_group_id        = module.networking.outputs.internet_proxy_vpce.sg_id
 }
 
 resource "aws_security_group_rule" "kali_allow_all_egress" {
@@ -94,8 +94,8 @@ resource "aws_instance" "kali" {
   user_data = templatefile(
     "${path.module}/kali_users.cloud-cfg.tmpl",
     { users       = local.kali_users,
-      http_proxy  = format("http://%s:3128", aws_vpc_endpoint.internet_proxy.dns_entry[0].dns_name),
-      https_proxy = format("http://%s:3128", aws_vpc_endpoint.internet_proxy.dns_entry[0].dns_name),
+      http_proxy  = format("http://%s:3128", module.networking.outputs.internet_proxy_vpce.dns_name),
+      https_proxy = format("http://%s:3128", module.networking.outputs.internet_proxy_vpce.dns_name),
     }
   )
 
@@ -138,8 +138,7 @@ resource "aws_route" "asi_to_ssh_bastion" {
 
 resource "aws_route" "ssh_bastion_to_asi" {
   provider                  = aws.ssh_bastion
-  count                     = local.deploy_ithc_infra[local.environment] ? length(module.networking.outputs.aws_subnets_private) : 0
-  destination_cidr_block    = module.networking.outputs.aws_subnets_private.0.cidr_block
+  destination_cidr_block    = module.networking.outputs.aws_vpc.cidr_block
   route_table_id            = data.terraform_remote_state.internet_ingress.outputs.ssh_bastion.route_table.0.id
   vpc_peering_connection_id = aws_vpc_peering_connection.ssh_bastion.0.id
 }
