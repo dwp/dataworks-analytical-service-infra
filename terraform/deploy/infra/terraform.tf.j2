@@ -53,6 +53,20 @@ data "terraform_remote_state" "internet_ingress" {
   }
 }
 
+data "terraform_remote_state" "management_dns" {
+  backend   = "s3"
+  workspace = local.management_workspace[local.management_account[local.environment]]
+
+  config = {
+    bucket         = "{{state_file_bucket}}"
+    key            = "terraform/dataworks/management.tfstate"
+    region         = "{{state_file_region}}"
+    encrypt        = true
+    kms_key_id     = "arn:aws:kms:{{state_file_region}}:{{state_file_account}}:key/{{state_file_kms_key}}"
+    dynamodb_table = "remote_state_locks"
+  }
+}
+
 provider "aws" {
   version = "~> 2.62.0"
   region = "{{provider_region}}"
@@ -66,6 +80,16 @@ provider "aws" {
   version = "~> 2.62.0"
   region  = "{{provider_region}}"
   alias   = "ssh_bastion"
+
+  assume_role {
+    role_arn = "arn:aws:iam::${local.account[local.management_account[local.environment]]}:role/${var.assume_role}"
+  }
+}
+
+provider "aws" {
+  version = "~> 2.62.0"
+  region  = "{{provider_region}}"
+  alias   = "management_dns"
 
   assume_role {
     role_arn = "arn:aws:iam::${local.account[local.management_account[local.environment]]}:role/${var.assume_role}"
