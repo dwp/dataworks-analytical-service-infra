@@ -77,7 +77,7 @@ meta:
               cp ../../../../terraform-config/terraform.tfvars .
               terraform init
               terraform workspace show
-              terraform plan -detailed-exitcode
+              terraform plan -var assume_role=ci
         inputs:
           - name: dataworks-analytical-service-infra
           - name: terraform-config
