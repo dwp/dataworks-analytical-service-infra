@@ -1,23 +1,33 @@
 jobs:
-  - name: dataworks-analytical-service-infra-pr
-    plan:
-      - get: dataworks-analytical-service-infra-pr
-        trigger: true
-        version: every
-      - put: dataworks-analytical-service-infra-pr
-        params:
-          path: dataworks-analytical-service-infra-pr
-          status: pending
-      - .: (( inject meta.plan.terraform-bootstrap ))
-        input_mapping:
-          dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
-        on_failure:
-          put: dataworks-analytical-service-infra-pr
-          params:
-            path: dataworks-analytical-service-infra-pr
-            status: failure
-        on_success:
-          put: dataworks-analytical-service-infra-pr
-          params:
-            path: dataworks-analytical-service-infra-pr
-            status: success
+- name: dataworks-analytical-service-infra-pr
+  plan:
+  - get: dataworks-analytical-service-infra-pr
+    trigger: true
+    version: every
+  - put: dataworks-analytical-service-infra-pr
+    params:
+      context: status
+      path: dataworks-analytical-service-infra-pr
+      status: pending
+  - .: (( inject meta.plan.terraform-bootstrap ))
+    params:
+      DEPLOY_PATH: infra
+    input_mapping:
+      dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
+  - .: (( inject meta.plan.terraform-plan ))
+    params:
+      DEPLOY_PATH: infra
+    input_mapping:
+      dataworks-analytical-service-infra: dataworks-analytical-service-infra-pr
+    on_failure:
+      put: dataworks-analytical-service-infra-pr
+      params:
+        context: status
+        path: dataworks-analytical-service-infra-pr
+        status: failure
+    on_success:
+      put: dataworks-analytical-service-infra-pr
+      params:
+        context: status
+        path: dataworks-analytical-service-infra-pr
+        status: success
