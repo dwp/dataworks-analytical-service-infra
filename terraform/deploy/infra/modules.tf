@@ -12,7 +12,8 @@ module analytical_service_infra_vpc {
 
   aws_vpce_services = [
     "dynamodb",
-    "ecrdkr",
+    "ecr.dkr",
+    "ecr.api",
     "ec2",
     "ec2messages",
     "glue",
