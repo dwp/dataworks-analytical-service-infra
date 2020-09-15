@@ -1,28 +1,30 @@
 module analytical_service_infra_vpc {
   source  = "dwp/vpc/aws"
-  version = "2.0.7"
+  version = "3.0.8"
 
-  common_tags                                = local.common_tags
-  gateway_vpce_route_table_ids               = module.networking.outputs.aws_route_table_private_ids
-  interface_vpce_source_security_group_count = 0
-  interface_vpce_source_security_group_ids   = []
-  interface_vpce_subnet_ids                  = module.networking.outputs.aws_subnets_private[*].id
-  region                                     = var.vpc_region
-  vpc_cidr_block                             = local.cidr_block[local.environment].analytical-service-infra-vpc
-  vpc_name                                   = local.name
+  common_tags                              = local.common_tags
+  gateway_vpce_route_table_ids             = module.networking.outputs.aws_route_table_private_ids
+  interface_vpce_source_security_group_ids = []
+  interface_vpce_subnet_ids                = module.networking.outputs.aws_subnets_private[*].id
+  region                                   = var.vpc_region
+  vpc_cidr_block                           = local.cidr_block[local.environment].analytical-service-infra-vpc
+  vpc_name                                 = local.name
 
-  dynamodb_endpoint             = true
-  ecrdkr_endpoint               = true
-  ec2_endpoint                  = true
-  ec2messages_endpoint          = true
-  glue_endpoint                 = true
-  kms_endpoint                  = true
-  logs_endpoint                 = true
-  monitoring_endpoint           = true
-  s3_endpoint                   = true
-  emr_endpoint                  = true
-  ecs_endpoint                  = true
-  elasticloadbalancing_endpoint = true
+  aws_vpce_services = [
+    "dynamodb",
+    "ecr.dkr",
+    "ecr.api",
+    "ec2",
+    "ec2messages",
+    "glue",
+    "kms",
+    "logs",
+    "monitoring",
+    "s3",
+    "emr",
+    "ecs",
+    "elasticloadbalancing"
+  ]
 }
 
 module networking {
