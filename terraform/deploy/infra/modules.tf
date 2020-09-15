@@ -21,7 +21,7 @@ module analytical_service_infra_vpc {
     "logs",
     "monitoring",
     "s3",
-    "emr",
+    "elasticmapreduce",
     "ecs",
     "elasticloadbalancing"
   ]
