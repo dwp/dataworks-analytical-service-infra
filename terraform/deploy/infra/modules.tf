@@ -23,7 +23,8 @@ module analytical_service_infra_vpc {
     "s3",
     "elasticmapreduce",
     "ecs",
-    "elasticloadbalancing"
+    "elasticloadbalancing",
+    "rds-data"
   ]
 }
 
