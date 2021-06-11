@@ -1,5 +1,5 @@
 terraform {
-  required_version = "{{terraform_12_version}}"
+  required_version = "{{terraform_13_version}}"
 
   backend "s3" {
     bucket         = "{{state_file_bucket}}"
@@ -68,7 +68,7 @@ data "terraform_remote_state" "management_dns" {
 }
 
 provider "aws" {
-  version = "~> 2.62.0"
+  version = "~> 3.42.0"
   region = "{{provider_region}}"
 
   assume_role {
@@ -77,7 +77,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  version = "~> 2.62.0"
+  version = "~> 3.42.0"
   region  = "{{provider_region}}"
   alias   = "ssh_bastion"
 
@@ -87,7 +87,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  version = "~> 2.62.0"
+  version = "~> 3.42.0"
   region  = "{{provider_region}}"
   alias   = "management_dns"
 
