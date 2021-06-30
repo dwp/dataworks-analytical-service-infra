@@ -6,6 +6,7 @@ resources:
       repository: dwp/dataworks-analytical-service-infra
     check_every: 720h
     webhook_token: ((dataworks.concourse_github_webhook_token))
+
   - name: dataworks-analytical-service-infra
     type: git
     source:
@@ -16,3 +17,13 @@ resources:
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
 
+  - name: dataworks-analytical-service-infra-update-pipeline
+    type: git
+    source:
+      branch: master
+      uri: https://github.com/dwp/dataworks-analytical-service-infra.git
+      paths:
+        - ci/*
+        - aviator.yml
+    webhook_token: ((dataworks.concourse_github_webhook_token))
+    check_every: 720h 
