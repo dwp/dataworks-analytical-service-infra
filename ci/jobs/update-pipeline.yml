@@ -25,5 +25,5 @@ jobs:
             - name: dataworks-analytical-service-infra
           outputs:
             - name: pipeline
-      - set_pipeline: github-config
+      - set_pipeline: analytical-service-infra
         file: pipeline/aviator_pipeline.yml
