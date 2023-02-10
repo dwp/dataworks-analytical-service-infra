@@ -2,7 +2,6 @@ resource "aws_security_group" "internet_proxy_endpoint" {
   name        = "proxy_vpc_endpoint"
   description = "Control access to the Internet Proxy VPC Endpoint"
   vpc_id      = var.vpc.id
-  tags        = var.common_tags
 }
 
 resource "aws_vpc_endpoint" "internet_proxy" {

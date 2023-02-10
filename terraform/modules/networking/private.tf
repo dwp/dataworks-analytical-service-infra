@@ -3,13 +3,13 @@ resource "aws_subnet" "private" {
   cidr_block           = cidrsubnet(var.vpc.cidr_block, 4, count.index + local.zone_count + 1)
   vpc_id               = var.vpc.id
   availability_zone_id = data.aws_availability_zones.current.zone_ids[count.index]
-  tags                 = merge(var.common_tags, { Name = "${var.name}-private-${local.zone_names[count.index]}" })
+  tags                 = { Name = "${var.name}-private-${local.zone_names[count.index]}" }
 }
 
 resource "aws_route_table" "private" {
   count  = local.zone_count
   vpc_id = var.vpc.id
-  tags   = merge(var.common_tags, { Name = "${var.name}-private-${local.zone_names[count.index]}" })
+  tags   = { Name = "${var.name}-private-${local.zone_names[count.index]}" }
 }
 
 resource "aws_route_table_association" "private" {

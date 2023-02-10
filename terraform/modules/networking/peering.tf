@@ -3,7 +3,7 @@ resource aws_vpc_peering_connection analytical-vpc {
   peer_vpc_id = var.vpc.id
   vpc_id      = var.analytical-env-vpc
   auto_accept = true
-  tags        = merge(var.common_tags, { Name = "${var.name}-peering" })
+  tags        = { Name = "${var.name}-peering" }
   accepter {
     allow_remote_vpc_dns_resolution = true
   }
