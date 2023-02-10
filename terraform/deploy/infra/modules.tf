@@ -2,6 +2,7 @@ module analytical_service_infra_vpc {
   source  = "dwp/vpc/aws"
   version = "3.0.15"
 
+  common_tags                              = local.common_tags
   gateway_vpce_route_table_ids             = module.networking.outputs.aws_route_table_private_ids
   interface_vpce_source_security_group_ids = []
   interface_vpce_subnet_ids                = module.networking.outputs.aws_subnets_private[*].id
