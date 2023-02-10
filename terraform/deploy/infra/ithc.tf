@@ -14,7 +14,10 @@ resource "aws_security_group" "kali" {
   description = "Kali Linux Hosts"
   vpc_id      = module.networking.outputs.aws_vpc.id
 
-  tags = { Name = "Kali (ITHC)" }
+  tags = merge(
+    local.common_tags,
+    { Name = "Kali (ITHC)" }
+  )
 }
 
 resource "aws_security_group_rule" "kali_allow_ssh_ingress" {
@@ -92,7 +95,10 @@ resource "aws_instance" "kali" {
     }
   )
 
-  tags = { Name = "Kali (ITHC)" }
+  tags = merge(
+    local.common_tags,
+    { Name = "Kali (ITHC)" }
+  )
 }
 
 resource "aws_route53_record" "kali" {
@@ -111,7 +117,10 @@ resource "aws_vpc_peering_connection" "ssh_bastion" {
   peer_vpc_id   = data.terraform_remote_state.internet_ingress.outputs.vpc.id
   vpc_id        = module.networking.outputs.aws_vpc.id
 
-  tags = { Name = "ASI to Internet Ingress (${local.management_account[local.environment]})" }
+  tags = merge(
+    local.common_tags,
+    { Name = "ASI to Internet Ingress (${local.management_account[local.environment]})" }
+  )
 }
 
 resource "aws_vpc_peering_connection_accepter" "ssh_bastion" {
@@ -120,7 +129,10 @@ resource "aws_vpc_peering_connection_accepter" "ssh_bastion" {
   vpc_peering_connection_id = aws_vpc_peering_connection.ssh_bastion.0.id
   auto_accept               = true
 
-  tags = { Name = "ASI (${local.environment}) to Internet Ingress" }
+  tags = merge(
+    local.common_tags,
+    { Name = "ASI (${local.environment}) to Internet Ingress" }
+  )
 }
 
 resource "aws_route" "asi_to_ssh_bastion" {
