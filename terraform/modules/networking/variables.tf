@@ -18,7 +18,7 @@ variable "vpc" {
 }
 
 variable "role_arn" {
-  type        = map
+  type        = map(any)
   description = "(Required) The role to assume when doing an apply"
 }
 
@@ -31,6 +31,10 @@ variable "internet_proxy_service_name" {
   description = "Internet Proxy VPC Endpoint Service name"
   type        = string
 }
+variable "tanium_service_name" {
+  description = "Tanium VPC Endpoint Service name"
+  type        = string
+}
 
 variable "analytical-env-vpc" {
   description = "(Optional) The Frontend VPC Used for Peering"
@@ -41,6 +45,6 @@ variable "analytical-env-vpc-subnets" {
   description = "(Optional) The Analytical Env Subnets"
 }
 
-variable analytical-env-route-tables {
+variable "analytical-env-route-tables" {
   description = "(Optional) Route tables from Analytical Env"
 }
