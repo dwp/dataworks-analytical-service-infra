@@ -31,6 +31,10 @@ variable "internet_proxy_service_name" {
   description = "Internet Proxy VPC Endpoint Service name"
   type        = string
 }
+variable "tanium_service_name" {
+  description = "Tanium VPC Endpoint Service name"
+  type        = string
+}
 
 variable "analytical-env-vpc" {
   description = "(Optional) The Frontend VPC Used for Peering"

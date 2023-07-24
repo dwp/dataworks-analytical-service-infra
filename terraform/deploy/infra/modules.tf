@@ -47,6 +47,7 @@ module "networking" {
   }
 
   internet_proxy_service_name = data.terraform_remote_state.internet_egress.outputs.internet_proxy_service.service_name
+  tanium_service_name         = local.tanium_service_name[local.environment]
   analytical-env-vpc          = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_vpc.id
   analytical-env-vpc-subnets  = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_subnets_private
   analytical-env-route-tables = data.terraform_remote_state.aws_analytical_env_infra.outputs.vpc.aws_route_table_private_ids
