@@ -18,7 +18,7 @@ variable "vpc" {
 }
 
 variable "role_arn" {
-  type        = map
+  type        = map(any)
   description = "(Required) The role to assume when doing an apply"
 }
 
@@ -41,6 +41,6 @@ variable "analytical-env-vpc-subnets" {
   description = "(Optional) The Analytical Env Subnets"
 }
 
-variable analytical-env-route-tables {
+variable "analytical-env-route-tables" {
   description = "(Optional) Route tables from Analytical Env"
 }

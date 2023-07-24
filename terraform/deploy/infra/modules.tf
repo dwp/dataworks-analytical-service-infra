@@ -1,4 +1,4 @@
-module analytical_service_infra_vpc {
+module "analytical_service_infra_vpc" {
   source  = "dwp/vpc/aws"
   version = "3.0.15"
 
@@ -28,7 +28,7 @@ module analytical_service_infra_vpc {
   ]
 }
 
-module networking {
+module "networking" {
   source = "../../modules/networking"
 
   common_tags = local.common_tags
